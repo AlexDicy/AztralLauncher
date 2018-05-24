@@ -1,5 +1,5 @@
-#include "Globals.h"
 #pragma once
+#include "Globals.h"
 #include "iostream"
 #include "Main.h"
 
