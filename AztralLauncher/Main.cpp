@@ -1,9 +1,14 @@
-#include "Main.h"
+#include "Globals.h"
+#pragma once
 #include "iostream"
+#include "Main.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace System::Windows::Forms;
+
+using namespace AztralLauncher;
+
 
 [STAThread]
 int main()
@@ -13,7 +18,7 @@ int main()
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	pfc.AddFontFile(L"font.ttf");
-	AztralLauncher::Main ^main = gcnew AztralLauncher::Main(pfc.Families[0]);
+	Globals::font = pfc.Families[0];
 
-	Application::Run(main);
+	Application::Run(gcnew Main());
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include "Globals.h"
+#include "Login.h"
 
 namespace AztralLauncher {
 
@@ -15,14 +17,14 @@ namespace AztralLauncher {
 	public ref class Main : public System::Windows::Forms::Form
 	{
 	public:
-		Main(System::Drawing::FontFamily^ font)
+		Main(void)
 		{
 			InitializeComponent();
-			if (font != nullptr)
+			if (Globals::font != nullptr)
 			{
-				title->Font = gcnew Drawing::Font(font, 36);
-				loading->Font = gcnew Drawing::Font(font, 15);
-				exit->Font = gcnew Drawing::Font(font, 15);
+				title->Font = gcnew Drawing::Font(Globals::font, 36);
+				loading->Font = gcnew Drawing::Font(Globals::font, 15);
+				exit->Font = gcnew Drawing::Font(Globals::font, 15);
 			}
 		}
 
@@ -78,10 +80,10 @@ namespace AztralLauncher {
 			this->loading = (gcnew System::Windows::Forms::Label());
 			this->exit = (gcnew System::Windows::Forms::Button());
 			this->demoPanel = (gcnew System::Windows::Forms::Panel());
+			this->close = (gcnew System::Windows::Forms::Button());
+			this->loggedIn = (gcnew System::Windows::Forms::Button());
 			this->loggedOut = (gcnew System::Windows::Forms::Button());
 			this->demo = (gcnew System::Windows::Forms::Label());
-			this->loggedIn = (gcnew System::Windows::Forms::Button());
-			this->close = (gcnew System::Windows::Forms::Button());
 			this->header->SuspendLayout();
 			this->demoPanel->SuspendLayout();
 			this->SuspendLayout();
@@ -137,6 +139,7 @@ namespace AztralLauncher {
 			this->exit->TabIndex = 3;
 			this->exit->Text = L"Exit";
 			this->exit->UseVisualStyleBackColor = false;
+			this->exit->Click += gcnew System::EventHandler(this, &Main::exit_Click);
 			// 
 			// demoPanel
 			// 
@@ -151,23 +154,15 @@ namespace AztralLauncher {
 			this->demoPanel->Size = System::Drawing::Size(524, 82);
 			this->demoPanel->TabIndex = 4;
 			// 
-			// loggedOut
+			// close
 			// 
-			this->loggedOut->Location = System::Drawing::Point(17, 27);
-			this->loggedOut->Name = L"loggedOut";
-			this->loggedOut->Size = System::Drawing::Size(120, 34);
-			this->loggedOut->TabIndex = 1;
-			this->loggedOut->Text = L"Logged out";
-			this->loggedOut->UseVisualStyleBackColor = true;
-			// 
-			// demo
-			// 
-			this->demo->AutoSize = true;
-			this->demo->Location = System::Drawing::Point(13, 4);
-			this->demo->Name = L"demo";
-			this->demo->Size = System::Drawing::Size(112, 19);
-			this->demo->TabIndex = 0;
-			this->demo->Text = L"Demo options:";
+			this->close->Location = System::Drawing::Point(255, 27);
+			this->close->Name = L"close";
+			this->close->Size = System::Drawing::Size(110, 34);
+			this->close->TabIndex = 3;
+			this->close->Text = L"Close";
+			this->close->UseVisualStyleBackColor = true;
+			this->close->Click += gcnew System::EventHandler(this, &Main::close_Click);
 			// 
 			// loggedIn
 			// 
@@ -178,14 +173,24 @@ namespace AztralLauncher {
 			this->loggedIn->Text = L"Logged In";
 			this->loggedIn->UseVisualStyleBackColor = true;
 			// 
-			// close
+			// loggedOut
 			// 
-			this->close->Location = System::Drawing::Point(255, 27);
-			this->close->Name = L"close";
-			this->close->Size = System::Drawing::Size(110, 34);
-			this->close->TabIndex = 3;
-			this->close->Text = L"Close";
-			this->close->UseVisualStyleBackColor = true;
+			this->loggedOut->Location = System::Drawing::Point(17, 27);
+			this->loggedOut->Name = L"loggedOut";
+			this->loggedOut->Size = System::Drawing::Size(120, 34);
+			this->loggedOut->TabIndex = 1;
+			this->loggedOut->Text = L"Logged out";
+			this->loggedOut->UseVisualStyleBackColor = true;
+			this->loggedOut->Click += gcnew System::EventHandler(this, &Main::loggedOut_Click);
+			// 
+			// demo
+			// 
+			this->demo->AutoSize = true;
+			this->demo->Location = System::Drawing::Point(13, 4);
+			this->demo->Name = L"demo";
+			this->demo->Size = System::Drawing::Size(112, 19);
+			this->demo->TabIndex = 0;
+			this->demo->Text = L"Demo options:";
 			// 
 			// Main
 			// 
@@ -219,5 +224,15 @@ namespace AztralLauncher {
 	private: System::Void Main_Load(System::Object^  sender, System::EventArgs^  e) {
 
 	}
+private: System::Void loggedOut_Click(System::Object^  sender, System::EventArgs^  e) {
+	(gcnew Login(this))->Show();
+	Hide();
+}
+private: System::Void close_Click(System::Object^  sender, System::EventArgs^  e) {
+	Application::Exit();
+}
+private: System::Void exit_Click(System::Object^  sender, System::EventArgs^  e) {
+	Application::Exit();
+}
 };
 }
