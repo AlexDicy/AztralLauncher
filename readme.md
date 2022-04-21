@@ -1,4 +1,6 @@
-## Aztral Launcher
+## Aztral Launcher (Archived)
+Test of a login screen
+
 Screenshot:
 
 ![](https://github.com/HAlexTM/AztralLauncher/blob/master/Screenshot%20-%20Loading%20screen.png?raw=true)
